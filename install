@@ -147,21 +147,6 @@ brew_install() {
     eval "$(/opt/homebrew/bin/brew shellenv)"
 }
 
-# # install brew -------- temporary
-# brew_install() {
-#     if ! has brew; then
-#         # Use yes to automatically answer yes to prompts
-#         yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" < /dev/null
-#         if [ $? -ne 0 ]; then
-#             error "Failed to install Homebrew."
-#         fi
-#     fi
-#     if [ "$(grep 'eval "$(/opt/homebrew/bin/brew shellenv)"' ~/.zprofile | wc -l)" -eq 0 ]; then
-#         echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
-#     fi
-#     eval "$(/opt/homebrew/bin/brew shellenv)"
-# }
-
 # install git and setting gitconfig and sshkey with user input
 gitconfig_set() {
     read -p "${BLUE}Enter your Git user name${NORMAL}: " git_username
@@ -222,8 +207,24 @@ eza_install() {
     install eza brew install eza
 }
 
+nerd_fonts() {
+    git clone --branch=master --depth 1 https://github.com/ryanoasis/nerd-fonts.git
+    cd nerd-fonts
+    ./install.sh $1  # "Source" to install Sauce Code Nerd Font
+    cd ..
+    rm -rf nerd-fonts
+}
+
 # install starship
 starship_install() {
+
+    # nead fonts install for starship
+    git clone --branch=master --depth=1 https://github.com/ryanoasis/nerd-fonts.git
+    cd nerd-fonts
+    ./install.sh "$1"
+    cd ..
+    rm -rf nerd-fonts
+
     install starship brew install starship
     ln -snfv $DOTFILES_PATH/.config/starship/starship.toml $HOME/.config/starship.toml
 }
