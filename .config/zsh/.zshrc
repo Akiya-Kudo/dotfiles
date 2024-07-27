@@ -2,6 +2,9 @@
 # brew setup
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# starship setup
+eval "$(starship init zsh)"
+
 #volta setup
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
@@ -42,6 +45,3 @@ alias dcb='docker compose build'
 alias nr='npm run'
 alias shutnow='shutdown -h now'
 alias relogin='exec zsh -l'
-
-# starship setup
-eval "$(starship init zsh)"
