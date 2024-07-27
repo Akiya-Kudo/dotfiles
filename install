@@ -211,12 +211,26 @@ eza_install() {
 starship_install() {
     install starship brew install starship
     ln -snfv $DOTFILES_PATH/.config/starship/starship.toml $HOME/.config/starship.toml
-    starship preset no-nerd-font -o ~/.config/starship.toml
+    starship preset pastel-powerline -o ~/.config/starship.toml
 }
 
 # install volta 
 volta_install() {
     install volta brew install volta
+}
+
+# install jetbrains mono
+Cascadia_Code_Font_install() {
+    arrow "Installing Cascadia Code Font"
+    if [ ! -d "$HOME/Library/Fonts/Cascadia Code" ]; then
+        mkdir -p "$HOME/Library/Fonts/Cascadia Code"
+        curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Cascadia Code.zip
+        unzip Cascadia Code.zip -d $HOME/Library/Fonts/Cascadia Code
+        rm -f Cascadia Code.zip
+    else
+        bold "Cascadia Code is already exists."
+    fi
+    success "Successfully installed Cascadia Code"
 }
 
 # ------------------------------ main ------------------------------
