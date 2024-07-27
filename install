@@ -183,7 +183,7 @@ dotfiles_download() {
 }
 
 # install zsh plugins and link zsh config
-zsh_install() {
+zsh_setting() {
     arrow "Installing zsh plugins and linking zsh config."
     ln -snfv $DOTFILES_PATH/.config/zsh/.zshrc $HOME/.zshrc
     mkdir -p $HOME/.config/zsh/plugins
@@ -226,8 +226,9 @@ main() {
         losetta_download
         brew_install
         git_install
+        xcode_download
         dotfiles_download
-        zsh_install
+        zsh_setting
         eza_install
         starship_install
         bat_install
