@@ -122,6 +122,19 @@ losetta_download() {
     fi
 }
 
+# Install xcode
+xcode_download() {
+    if [[  $OS == 'macOS' ]] ; then 
+        if ! xcode-select --print-path &> /dev/null; then
+            # Install command line tools
+            echo "${BLUE}X-code Command line tools not found. Installing...${NORMAL}"
+            xcode-select --install
+        else
+            echo "X-code Command line tools are already installed, so skipped."
+        fi
+    fi
+}
+
 # install brew
 brew_install() {
     install brew curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh < /dev/null
@@ -146,20 +159,6 @@ git_install() {
     install git brew install git
     yes_or_no "configure gitconfig" gitconfig_set
 }
-
-# Install xcode
-xcode_download() {
-    if [[  $OS == 'macOS' ]] ; then 
-        if ! xcode-select --print-path &> /dev/null; then
-            # Install command line tools
-            echo "${BLUE}Command line tools not found. Installing...${NORMAL}"
-            xcode-select --install
-        else
-            echo "Command line tools are already installed, so skipped."
-        fi
-    fi
-}
-
 
 # download dotfiles
 dotfiles_download() {
@@ -224,9 +223,9 @@ main() {
     detect_os
     if [ $OS = 'macOS' ]; then
         losetta_download
+        xcode_download
         brew_install
         git_install
-        xcode_download
         dotfiles_download
         zsh_setting
         eza_install
