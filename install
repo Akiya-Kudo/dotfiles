@@ -217,16 +217,16 @@ nerd_fonts() {
 
 # install starship
 starship_install() {
-
-    # nead fonts install for starship
-    git clone --branch=master --depth=1 https://github.com/ryanoasis/nerd-fonts.git
-    cd nerd-fonts
-    ./install.sh "$1"
-    cd ..
-    rm -rf nerd-fonts
-
+    # # nead fonts install for starship
+    # git clone --branch=master --depth=1 https://github.com/ryanoasis/nerd-fonts.git
+    # cd nerd-fonts
+    # ./install.sh "$1"
+    # cd ..
+    # rm -rf nerd-fonts
+    # install sharship
     install starship brew install starship
     ln -snfv $DOTFILES_PATH/.config/starship/starship.toml $HOME/.config/starship.toml
+    starship preset pastel-powerline -o ~/.config/starship.toml
 }
 
 # install volta 
