@@ -137,7 +137,8 @@ xcode_download() {
 
 # install brew
 brew_install() {
-    install brew curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh < /dev/null
+    # install brew curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh < /dev/null
+    install brew /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" < /dev/null
     if [ `grep 'eval "$(/opt/homebrew/bin/brew shellenv)"' ~/.zprofile | wc -l` -eq 0 ]; then
         echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
     fi
