@@ -1,0 +1,65 @@
+readonly DOTFILES_PATH=$HOME/dotfiles
+readonly REMOTE_URL=https://github.com/Akiya-Kudo/dotfiles.git
+
+# soucing from utils
+. ./setting/message
+. ./setting/util
+
+
+# download dotfiles
+download_dotfiles() {
+    arrow "Downloading dotfiles"
+    cd $HOME
+    if [ ! -d $DOTFILES_PATH ]; then
+        if has git; then
+            git clone --recursive $REMOTE_URL $DOTFILES_PATH
+        else
+            error "Please install git first and then run."
+            exit 1
+        fi
+        if [ $? = 0 ]; then
+            success "Successfully downloaded dotfiles."
+        else
+            error "An unexpected error occurred when trying to git clone"
+        fi
+    else
+        bold "dotfiles is already exists."
+    fi
+}
+
+# install brew
+install_brew() {
+    install brew /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" < /dev/null
+    if [ `grep 'eval "$(/opt/homebrew/bin/brew shellenv)"' ~/.zprofile | wc -l` -eq 0 ]; then
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
+    fi
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+}
+
+# install git
+install_git() {
+    install git brew install git
+    ln -snfv $DOTFILES_PATH/.gitconfig $HOME/.gitconfig
+}
+
+# install bat
+install_bat() {
+    install bat brew install bat
+}
+
+# install exa
+install_eza() {
+    install eza brew install eza
+}
+
+# install starship
+install_starship() {
+    install starship brew install starship
+    ln -snfv $DOTFILES_PATH/.config/starship/starship.toml $HOME/.config/starship.toml
+}
+
+# install volta 
+install_volta() {
+    install volta brew install volta
+}
+
