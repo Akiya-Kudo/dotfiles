@@ -1,5 +1,7 @@
 # dotfiles
 
+`bash -c "$(curl -fsSL https://raw.githubusercontent.com/Akiya-Kudo/dotfiles/main/install)"`
+
 ## What I wanna do this weeeeekend
 
 1. detect the House router IP and Construct House server
@@ -20,7 +22,6 @@
 - docker
 - atcoder 環境
 - yazi
-- lossettとかの設定を機能したきが・・・・
 
 ## アプリ
 
