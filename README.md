@@ -38,3 +38,12 @@
 - dbeaver
 - rcmd
 - vscode
+
+
+### Mac 設定
+- control & chommand
+- background screen syber
+- dock all delete
+- hot corner
+- default browser
+- stage manager setting
