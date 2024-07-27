@@ -211,6 +211,7 @@ eza_install() {
 starship_install() {
     install starship brew install starship
     ln -snfv $DOTFILES_PATH/.config/starship/starship.toml $HOME/.config/starship.toml
+    starship preset bracketed-segments -o ~/.config/starship.toml
 }
 
 # install volta 
