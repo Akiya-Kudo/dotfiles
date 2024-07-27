@@ -1,3 +1,6 @@
+if [ "$ZSHRC_PROFILE" != "" ]; then
+    zmodload zsh/zprof && zprof > /dev/null
+fi
 
 # brew setup
 eval "$(/opt/homebrew/bin/brew shellenv)"
