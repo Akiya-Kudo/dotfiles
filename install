@@ -147,6 +147,20 @@ git_install() {
     yes_or_no "configure gitconfig" gitconfig_set
 }
 
+# Install xcode
+xcode_download() {
+    if [[  $OS == 'macOS' ]] ; then 
+        if ! xcode-select --print-path &> /dev/null; then
+            # Install command line tools
+            echo "${BLUE}Command line tools not found. Installing...${NORMAL}"
+            xcode-select --install
+        else
+            echo "Command line tools are already installed, so skipped."
+        fi
+    fi
+}
+
+
 # download dotfiles
 dotfiles_download() {
     arrow "Downloading dotfiles"
