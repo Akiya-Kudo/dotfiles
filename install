@@ -92,11 +92,11 @@ yes_or_no() {
 
     while true; do
         read -p "${BLUE}${BOLD}Do you wanna $prompt_message ? (y/n)${NORMAL}: " answer
-        if [ $[ $answer == [Yy] ]] ; then
+        if [[ $answer == [Yy] ]] ; then
             $confirm_callback
             echo "${GREEN}${BOLD}Configuration completed.${NORMAL}"
             break
-        elif [ $[ $answer == [Nn] ]] ; then
+        elif [[ $answer == [Nn] ]] ; then
             echo "Skipped!"
             break
         else
