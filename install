@@ -224,9 +224,10 @@ Cascadia_Code_Font_install() {
     arrow "Installing CascadiaCode Font"
     if [ ! -d "$HOME/Library/Fonts/CascadiaCode" ]; then
         mkdir -p "$HOME/Library/Fonts/CascadiaCode"
-        curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Cascadia%20Code.zip
-        unzip Cascadia%20Code.zip -d $HOME/Library/Fonts/CascadiaCode
-        rm -f Cascadia%20Code.zip
+        # curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Cascadia%20Code.zip
+        # unzip Cascadia%20Code.zip -d $HOME/Library/Fonts/CascadiaCode
+        # rm -f Cascadia%20Code.zip
+        mv "#HOME/dotfiles/font/CascadiaCode" "$HOME/Library/Fonts/CascadiaCode"
     else
         bold "CascadiaCode is already exists."
     fi
