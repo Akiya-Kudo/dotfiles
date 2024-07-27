@@ -207,35 +207,11 @@ eza_install() {
     install eza brew install eza
 }
 
-nerd_fonts_install() {
-    git clone --branch=master --depth 1 https://github.com/ryanoasis/nerd-fonts.git
-    cd nerd-fonts
-    ./install.sh $1  # "Source" to install Sauce Code Nerd Font
-    cd ..
-    rm -rf nerd-fonts
-}
-
-# install jetbrains mono
-install_jetbrains_mono_install() {
-    arrow "Installing JetBrainsMono"
-    if [ ! -d $HOME/Library/Fonts/JetBrainsMono ]; then
-        mkdir -p $HOME/Library/Fonts/JetBrainsMono
-        curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip
-        unzip JetBrainsMono.zip -d $HOME/Library/Fonts/JetBrainsMono
-        rm -f JetBrainsMono.zip
-    else
-        bold "JetBrainsMono is already exists."
-    fi
-    success "Successfully installed JetBrainsMono"
-}
-
 # install starship
 starship_install() {
-    nerd_fonts_install
-    install_jetbrains_mono_install
     install starship brew install starship
     ln -snfv $DOTFILES_PATH/.config/starship/starship.toml $HOME/.config/starship.toml
-    # starship preset pastel-powerline -o ~/.config/starship.toml
+    starship preset no-nerd-font -o ~/.config/starship.toml
 }
 
 # install volta 
