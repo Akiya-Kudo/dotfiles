@@ -20,6 +20,7 @@
 - docker
 - atcoder 環境
 - yazi
+- lossettとかの設定を機能したきが・・・・
 
 ## アプリ
 

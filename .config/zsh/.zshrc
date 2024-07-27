@@ -9,6 +9,9 @@ eval "$(starship init zsh)"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
+# zsh plugins
+source $HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 
 # alias
 alias l='eza -la --icons'

@@ -1,13 +1,154 @@
 readonly DOTFILES_PATH=$HOME/dotfiles
 readonly REMOTE_URL=https://github.com/Akiya-Kudo/dotfiles.git
+ARCH_TYPE=$(uname -m)
 
-# soucing from utils
-. ./setting/message
-. ./setting/util
+# ------------------------------ settings for install ------------------------------ 
+# color settings
+if which tput >/dev/null 2>&1; then
+    ncolors=$(tput colors)
+fi
+if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
+    RED="$(tput setaf 1)"
+    GREEN="$(tput setaf 2)"
+    YELLOW="$(tput setaf 3)"
+    BLUE="$(tput setaf 4)"
+    BOLD="$(tput bold)"
+    NORMAL="$(tput sgr0)"
+else
+    RED=""
+    GREEN=""
+    YELLOW=""
+    BLUE=""
+    BOLD=""
+    NORMAL=""
+fi
 
+# success message: green message
+success() {
+    echo "${GREEN}${1}${NORMAL}"
+}
+
+# error message: red message and exit as error
+error() {
+    echo "${RED}${1}${NORMAL}"
+    exit 1
+}
+
+# bold message: message bold
+bold() {
+    echo "${BOLD}${1}${NORMAL}"
+}
+
+# displaying help messages
+helpmsg() {
+    echo "Usage: $0 [--help | -h]" 0>&2
+    echo ""
+}
+
+# arrowhead message: at the head of message, added arrow figure
+arrow() {
+    echo "${BLUE}==>${NORMAL} ${BOLD}${1}${NORMAL}"
+}
+
+# check existence: with using type
+has() {
+    type "$1" > /dev/null 2>&1
+}
+
+# detect os type
+detect_os() {
+    UNAME=$(uname)
+    if [ $UNAME == 'Darwin' ]; then
+        OS='macOS'
+    elif [ $UNAME == 'Linux' ]; then
+        OS='Linux'
+    else
+        echo 'Who are you?'
+        exit 1
+    fi
+}
+
+# $1(first param is estimate to be command you wanna use) 
+# $2 and later(the command to install $1)
+# if $1 does not exist, run $2 
+install() {
+    arrow "Installing ${1}"
+    if has "$1"; then
+        bold "${1} is already exists."
+    else
+        arrow "Installing ${1}"
+        ${@:2}
+        if [ $? = 0 ]; then
+            success "Successfully installed ${1}."
+        else
+            error "An unexpected error occurred when trying to install ${1}."
+        fi
+    fi
+}
+
+yes_or_no() {
+    local prompt_message="$1"
+    local confirm_callback="$2"
+
+    while true; do
+        read -p "${BLUE}${BOLD}Do you wanna $prompt_message ? (y/n)${NORMAL}: " answer
+        if [ $[ $answer == [Yy] ]] ; then
+            $confirm_callback
+            echo "${GREEN}${BOLD}Configuration completed.${NORMAL}"
+            break
+        elif [ $[ $answer == [Nn] ]] ; then
+            echo "Skipped!"
+            break
+        else
+            echo "${RED}Invalid input. Please enter 'y' or 'n'.${NORMAL}"
+        fi
+    done
+}
+
+
+# ------------------------------  install methods ------------------------------
+
+# Install Rosetta 2 for Apple Silicon
+losetta_download() {
+    if [[  $OS == 'macOS' && $ARCH_TYPE == "arm64" ]] ; then 
+        if ! (arch -arch x86_64 uname -m &> /dev/null) ; then
+            echo "no Rosetta installed"
+            softwareupdate --install-rosetta --agree-to-license
+        else
+            echo "Rosetta 2 is aleady existed."
+        fi
+    else 
+        echo "losseta 2 installation is not required, so skipped."
+    fi
+}
+
+# install brew
+brew_install() {
+    install brew /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" < /dev/null
+    if [ `grep 'eval "$(/opt/homebrew/bin/brew shellenv)"' ~/.zprofile | wc -l` -eq 0 ]; then
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
+    fi
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+}
+
+# install git and setting gitconfig and sshkey with user input
+gitconfig_set() {
+    read -p "${BLUE}Enter your Git user name${NORMAL}: " git_username
+    read -p "${BLUE}Enter your Git user email${NORMAL}: " git_useremail
+
+    git config --global user.name "$git_username"
+    git config --global user.email "$git_useremail"
+
+    echo "Git user.name set to: $(git config --global user.name)"
+    echo "Git user.email set to: $(git config --global user.email)"
+}
+git_install() {
+    install git brew install git
+    yes_or_no "configure gitconfig" gitconfig_set
+}
 
 # download dotfiles
-download_dotfiles() {
+dotfiles_download() {
     arrow "Downloading dotfiles"
     cd $HOME
     if [ ! -d $DOTFILES_PATH ]; then
@@ -27,39 +168,78 @@ download_dotfiles() {
     fi
 }
 
-# install brew
-install_brew() {
-    install brew /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" < /dev/null
-    if [ `grep 'eval "$(/opt/homebrew/bin/brew shellenv)"' ~/.zprofile | wc -l` -eq 0 ]; then
-        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
+# install zsh plugins and link zsh config
+zsh_install() {
+    arrow "Installing zsh plugins and linking zsh config."
+    ln -snfv $DOTFILES_PATH/.config/zsh/.zshrc $HOME/.zshrc
+    mkdir -p $HOME/.config/zsh/plugins
+    if [ ! -d $HOME/.config/zsh/plugins/zsh-syntax-highlighting ]; then
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.config/zsh/plugins/zsh-syntax-highlighting
+        success "Successfully install zsh plugins."
+    else
+        bold "zsh plugins already installed."
     fi
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-}
-
-# install git
-install_git() {
-    install git brew install git
-    ln -snfv $DOTFILES_PATH/.gitconfig $HOME/.gitconfig
 }
 
 # install bat
-install_bat() {
+bat_install() {
     install bat brew install bat
 }
 
 # install exa
-install_eza() {
+eza_install() {
     install eza brew install eza
 }
 
 # install starship
-install_starship() {
+starship_install() {
     install starship brew install starship
     ln -snfv $DOTFILES_PATH/.config/starship/starship.toml $HOME/.config/starship.toml
 }
 
 # install volta 
-install_volta() {
+volta_install() {
     install volta brew install volta
 }
 
+# ------------------------------ main ------------------------------
+
+# first get sudo, then for macos, do the installation process
+main() {
+    sudo echo ''
+    detect_os
+    if [ $OS = 'macOS' ]; then
+        losetta_download
+        brew_install
+        git_install
+        dotfiles_download
+        zsh_install
+        eza_install
+        starship_install
+        bat_install
+        volta_install
+        success "Install completed!"
+    else
+        error 'not supported os'
+    fi
+}
+
+# argument handling
+while [ $# -gt 0 ]; do
+    case ${1} in
+        --debug|-d)
+            set -uex
+            ;;
+        --help|-h)
+            helpmsg
+            exit 1
+            ;;
+        *)
+            ;;
+    esac
+    shift
+done
+
+main
+
+exit 0
