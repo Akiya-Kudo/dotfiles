@@ -277,7 +277,7 @@ done
 main
 if [[  $OS == 'macOS' ]] ; then 
     arrow "Configure Apple Mac OS Setting"
-    source osx
+    source ./osx
     success "Apple Mac OS Setting is completed."
 fi
 
