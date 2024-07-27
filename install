@@ -227,11 +227,11 @@ Cascadia_Code_Font_install() {
         # curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Cascadia%20Code.zip
         # unzip Cascadia%20Code.zip -d $HOME/Library/Fonts/CascadiaCode
         # rm -f Cascadia%20Code.zip
-        mv "#HOME/dotfiles/font/CascadiaCode" "$HOME/Library/Fonts/"
+        mv "$HOME/dotfiles/font/CascadiaCode" "$HOME/Library/Fonts/CascadiaCode"
+        success "Successfully installed CascadiaCode"
     else
         bold "CascadiaCode is already exists."
     fi
-    success "Successfully installed CascadiaCode"
 }
 
 # ------------------------------ main ------------------------------
