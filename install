@@ -91,16 +91,16 @@ yes_or_no() {
     local confirm_callback="$2"
 
     while true; do
-        read -p "${BLUE}${BOLD}Do you wanna $prompt_message ? (y/n)${NORMAL}: " answer
-        if [[ $answer == [Yy] ]] ; then
-            $confirm_callback
-            echo "${GREEN}${BOLD}Configuration completed.${NORMAL}"
+        read -p "${BLUE}${BOLD}Do you want to $prompt_message ? (y/n)${NORMAL}: " answer
+        if [[ "$answer" == [Yy] ]]; then
+            "$confirm_callback"
+            echo -e "${GREEN}${BOLD}Configuration completed.${NORMAL}"
             break
-        elif [[ $answer == [Nn] ]] ; then
+        elif [[ "$answer" == [Nn] ]]; then
             echo "Skipped!"
             break
         else
-            echo "${RED}Invalid input. Please enter 'y' or 'n'.${NORMAL}"
+            echo -e "${RED}Invalid input. Please enter 'y' or 'n'.${NORMAL}"
         fi
     done
 }
