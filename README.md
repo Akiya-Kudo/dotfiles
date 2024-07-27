@@ -14,11 +14,9 @@
 
 ### 残り移行処理
 
-- zshrc 関連の定義
 - ssh の管理
 - application の管理
 - vscode の管理
-- volta 系
 - docker
 - atcoder 環境
 - yazi

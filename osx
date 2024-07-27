@@ -1,0 +1,38 @@
+# -u: Fail on when existing unset variables
+# -e -o pipefail: Fail on when happening command errors
+set -ueo pipefail
+
+##################################
+# dock系
+##################################
+
+# Dockに標準で入っている全てのアプリを消す、Finderとごみ箱は消えない
+defaults write com.apple.dock persistent-apps -array
+
+# アイコンサイズの設定
+defaults write com.apple.dock tilesize -int 50
+
+# Dockを自動的に隠す
+defaults write com.apple.dock autohide -bool true
+
+# Dockが表示されるまでの遅延を無くす
+defaults write com.apple.dock autohide-delay -float 0
+
+# Dockが隠れるアニメーションの速度を0.5秒に
+defaults write com.apple.dock autohide-time-modifier -float 0.5
+
+# Dashboard無効化
+defaults write com.apple.dashboard mcx-disabled -bool true
+
+# 設定反映
+killall Dock
+
+##################################
+# スクリーンショット系
+##################################
+
+# 保存場所を変更
+defaults write com.apple.screencapture location ~/Downloads
+
+# 設定を反映
+killall SystemUIServer

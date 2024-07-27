@@ -275,5 +275,9 @@ while [ $# -gt 0 ]; do
 done
 
 main
+if [[  $OS == 'macOS' ]] ; then 
+    arrow "Configure Apple Mac OS Setting"
+    source osx
+fi
 
 exit 0
