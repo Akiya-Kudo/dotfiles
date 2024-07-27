@@ -250,6 +250,7 @@ main() {
         starship_install
         bat_install
         volta_install
+        Cascadia_Code_Font_install
         success "Install completed!"
     else
         error 'not supported os'
