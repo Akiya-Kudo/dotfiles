@@ -42,4 +42,10 @@
 - dock all delete 
 - hot corner   left bottom: lock right bottom: launch ~ right top: menu
 - default browser arc
-- stage manager setting : only one window at once : right commadn + @ to switch same app : 
+- stage manager setting : only one window at once : right commadn + @ to switch same app :
+
+
+# Option
+- rancher 
+- dbeaver
+- mas "MonitorControl Lite", id: 1595464182
