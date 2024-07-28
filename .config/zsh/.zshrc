@@ -11,10 +11,8 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 # zsh plugins
 source $HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-#  online-judge-tools 
-# case you use /usr/bin/pip3
+# python pip3 and online-judge-tools  setup
 export PATH="/opt/homebrew/opt/python@3.9/bin:$PATH"
-# case you use homebrew /opt/homebrew/bin/pip3? 
 export PATH="$HOME/Library/Python/3.9/bin:$PATH"
 
 # yazi setup
