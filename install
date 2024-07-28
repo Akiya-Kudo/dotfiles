@@ -324,7 +324,7 @@ atcoder_configure() {
         cp $DOTFILES_PATH/.config/atcoder/template.json .
         cd ../
         cp $DOTFILES_PATH/.config/atcoder/config.json .
-        jq '.["oj-path"] = "/Users/$USER/Library/Python/3.9/bin/oj"' "./config.json" > tmp.$$.json && mv tmp.$$.json "./config.json"
+        jq --arg user "$USER" '.["oj-path"] = "/Users/\($user)/Library/Python/3.9/bin/oj"' "./config.json" > tmp.$$.json && mv tmp.$$.json "./config.json"
         cd $DOTFILES_PATH
     else
         echo "skipped because of some reasons : Volta is not installed or acc is already installed."
