@@ -18,11 +18,13 @@ etc
 - hot cornerを設定: 左下: 画面ロック / 右下: Mission control / 左上 screen savor  / 右上: menu
 - デフォルトブラウザを切り替える
 - ステージマネージャー変えたい one window at onceに
-- 右コマンド + @で同じアプリ切り替えにする
+- 右コマンド + @で同じアプリ切り替えにする (keyboard shortcutsetting)
 - air pods・マウス・wifi・接続
 - 言語設定
 - dockを自動でどじる設定
 
+# fix: 
+- ssh のconfigを作成するor default名のみ対応にする
 
 # 次やりたいこと
 - defaults設定
