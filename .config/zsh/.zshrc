@@ -13,7 +13,7 @@ source $HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting
 
 #  online-judge-tools 
 # case you use /usr/bin/pip3
-export "PATH="/opt/homebrew/opt/python@3.9/bin:$PATH"
+export PATH="/opt/homebrew/opt/python@3.9/bin:$PATH"
 # case you use homebrew /opt/homebrew/bin/pip3? 
 export PATH="/Users/kudoakiya/Library/Python/3.9/bin:$PATH"
 
