@@ -13,7 +13,6 @@
 
 ### 残り移行処理
 
-- vscode の管理
 - atcoder 環境
 - ssh の管理
 

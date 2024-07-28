@@ -328,8 +328,9 @@ main() {
         bat_install
         volta_install
         Cascadia_Code_Font_install
-        mac_defaults_setup
         brewfile_download
+        vscode_setting
+        mac_defaults_setup
         success "Install completed!"
     else
         error 'not supported os'
