@@ -328,7 +328,7 @@ atcoder_configure() {
     # online-judge-tools
     arrow "Install online-judge-tools"
     brew install python@3.9
-    echo 'export PATH="/opt/homebrew/opt/python@3.9/bin:$PATH"' >> ~/.zshrc
+    # echo 'export PATH="/opt/homebrew/opt/python@3.9/bin:$PATH"' >> ~/.zshrc # moveed to .zshrc
     if [ -x "$(command -v pip3)" ]; then
         echo "Using pip3 path: $(which pip3)"
         pip3 install online-judge-tools
