@@ -28,6 +28,9 @@
   "[javascriptreact]": {
     "editor.tabSize": 2
   },
+  "[json]": {
+    "editor.tabSize": 2
+  },
   "diffEditor.hideUnchangedRegions.enabled": true,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "typescript.updateImportsOnFileMove.enabled": "always",

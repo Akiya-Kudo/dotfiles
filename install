@@ -310,6 +310,48 @@ vscode_setting() {
     yes_or_no "Do you want to Install vscode extensions" vscode_extensions
 }
 
+# configure python and npm  and g++ and bits for atcoder
+atcoder_configure() {
+    # atcoder-cli
+    arrow "Install atcoder-cli using volta"
+    if [ -x "$(command -v volta)" ] && ! [ -x "$(command -v acc)" ]; then
+        volta install atcoder-cli
+        echo "${BLUE}Please log in to AtCoder !${NORMAL}"
+        acc login
+        echo "copying main.cpp and template.json"
+        cd $(acc config-dir)
+        mkdir "cpp" && cd "cpp"
+        cp $DOTFILES_PATH/.config/atcoder/main.cpp .
+        cp $DOTFILES_PATH/.config/atcoder/template.json .
+    else
+        echo "skipped because of some reasons : Volta is not installed or acc is already installed."
+    fi
+    # online-judge-tools
+    arrow "Install online-judge-tools"
+    if [ -x "$(command -v pip)" ]; then
+        echo "Using pip path: $(which pip)"
+        pip install online-judge-tools
+    else
+        echo " installaction of online-judge-tools failed becouase of pip not found. Please install pip and try again."
+        return 1
+    fi
+    # g++
+    arrow "set up g++"
+    brew install gcc@14
+    sudo ln -s /opt/homebrew/opt/gcc@14/bin/g++-14 /usr/local/bin/g++
+    # Be cautious with system directories and use sudo if necessary
+    sudo mkdir -p /usr/local/include/bits/
+    sudo cp "$DOTFILES_PATH/.config/atcoder/stdc++.h" "/usr/local/include/bits"
+}
+
+# atcoder setting
+atcoer_settings() {
+    if [[ $OS == 'macOS' ]] ; then
+        arrow "Setting up AtCoder"
+        yes_or_no "Do you want to set up atcoder with c++ and oj and acc ? : " atcoder_configure
+    fi
+}
+
 # ------------------------------ main ------------------------------
 
 # first get sudo, then for macos, do the installation process
@@ -330,6 +372,7 @@ main() {
         Cascadia_Code_Font_install
         brewfile_download
         vscode_setting
+        atcoer_settings
         mac_defaults_setup
         success "Install completed!"
     else
