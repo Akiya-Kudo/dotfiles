@@ -366,7 +366,7 @@ atcoder_settings() {
 
 # make sshkey
 make_sshkey() {
-    yes_or_no "Do you want to make sshkey for github or else ?" ./ssh
+    yes_or_no "Do you want to make sshkey for github or else ?" source ./ssh
 }
 
 # ------------------------------ main ------------------------------
