@@ -254,7 +254,6 @@ mac_defaults_setup() {
         source $HOME/dotfiles/osx
         success "Apple Mac OS Setting is completed."
     fi
-    source $DOTFILES_PATH/install/osx
 }
 
 # install GUI Apps
@@ -334,7 +333,7 @@ atcoder_configure() {
         echo "Using pip3 path: $(which pip3)"
         pip3 install online-judge-tools
     else
-        echo " installaction of online-judge-tools failed becouase of pip3 not found. Please install pip3 and try again."
+        echo "${RED}installaction of online-judge-tools failed becouase of pip3 not found. Please install pip3 and try again.${NORMAL}"
         return 1
     fi
     # g++
@@ -347,7 +346,7 @@ atcoder_configure() {
 }
 
 # atcoder setting
-atcoer_settings() {
+atcoder_settings() {
     if [[ $OS == 'macOS' ]] ; then
         arrow "Setting up AtCoder"
         yes_or_no "Do you want to set up atcoder with c++ and oj and acc ? : " atcoder_configure
@@ -374,7 +373,7 @@ main() {
         Cascadia_Code_Font_install
         brewfile_download
         vscode_setting
-        atcoer_settings
+        atcoder_settings
         mac_defaults_setup
         success "Install completed!"
     else
