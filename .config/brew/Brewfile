@@ -1,0 +1,18 @@
+###############################
+#  Taps                       #
+###############################
+# tap "homebrew/bundle"
+# tap "homebrew/cask-versions"
+# tap "homebrew/services"
+# tap "homebrew/cask"
+###############################
+#  Cask                       #
+###############################
+cask "google-chrome"
+cask "slack"
+cask "docker"
+cask "rancher"
+cask "obsidian"
+cask "visual-studio-code"
+cask "postman"
+cask "dbeaver-community"

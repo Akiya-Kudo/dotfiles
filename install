@@ -219,6 +219,11 @@ volta_install() {
     install volta brew install volta
 }
 
+# install yazi
+yazi_install() {
+    install yazi brew install yazi
+}
+
 # install jetbrains mono
 Cascadia_Code_Font_install() {
     arrow "Installing CascadiaCode Font"
@@ -232,6 +237,26 @@ Cascadia_Code_Font_install() {
     else
         bold "CascadiaCode is already exists."
     fi
+}
+
+# set up mac defaults
+mac_defaults_setup() {
+    if [[  $OS == 'macOS' ]] ; then 
+        arrow "Setting up macOS defaults"
+        source $HOME/dotfiles/osx
+        success "Apple Mac OS Setting is completed."
+    fi
+    source $DOTFILES_PATH/install/osx
+}
+
+# install GUI Apps
+brewfile_download() {
+    arrow "Installing GUI Apps"
+    brew bundle --file=$DOTFILES_PATH/brew/Brewfile
+    if [[ $OS == 'macOS' ]] ; then
+        brew bundle --file=$DOTFILES_PATH/brew/Brewfile.mac
+    fi
+    success "GUI Apps installation is completed."
 }
 
 # ------------------------------ main ------------------------------
@@ -252,6 +277,8 @@ main() {
         bat_install
         volta_install
         Cascadia_Code_Font_install
+        # mac_defaults_setup
+        brewfile_download
         success "Install completed!"
     else
         error 'not supported os'
@@ -275,10 +302,5 @@ while [ $# -gt 0 ]; do
 done
 
 main
-if [[  $OS == 'macOS' ]] ; then 
-    arrow "Configure Apple Mac OS Setting"
-    source $HOME/dotfiles/osx
-    success "Apple Mac OS Setting is completed."
-fi
 
 exit 0

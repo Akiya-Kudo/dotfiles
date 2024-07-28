@@ -14,12 +14,10 @@
 
 ### 残り移行処理
 
-- ssh の管理
 - application の管理
 - vscode の管理
-- docker
 - atcoder 環境
-- yazi
+- ssh の管理
 
 ## アプリ
 
@@ -30,18 +28,18 @@
 - kindle
 - line
 - chrome
-- MonitorControlLite
 - rectangle
 - postnam
 - dbeaver
 - rcmd
 - vscode
+- MonitorControlLite
 
 
 ### Mac 設定
-- control & chommand
-- background screen syber
-- dock all delete
-- hot corner
-- default browser
-- stage manager setting
+- control & chommand change
+- background screen syber to movie
+- dock all delete 
+- hot corner   left bottom: lock right bottom: launch ~ right top: menu
+- default browser arc
+- stage manager setting : only one window at once : right commadn + @ to switch same app : 

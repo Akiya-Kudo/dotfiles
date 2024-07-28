@@ -1,38 +1,66 @@
-# -u: Fail on when existing unset variables
-# -e -o pipefail: Fail on when happening command errors
-set -ueo pipefail
+# # -u: Fail on when existing unset variables
+# # -e -o pipefail: Fail on when happening command errors
+# set -ueo pipefail
 
-##################################
-# dock系
-##################################
+# ##################################
+# # dock系
+# ##################################
 
-# Dockに標準で入っている全てのアプリを消す、Finderとごみ箱は消えない
-defaults write com.apple.dock persistent-apps -array
+# # Dockに標準で入っている全てのアプリを消す、Finderとごみ箱は消えない
+# defaults write com.apple.dock persistent-apps -array
 
-# アイコンサイズの設定
-defaults write com.apple.dock tilesize -int 50
+# # アイコンサイズの設定
+# defaults write com.apple.dock tilesize -int 50
 
-# Dockを自動的に隠す
-defaults write com.apple.dock autohide -bool true
+# # Dockを自動的に隠す
+# defaults write com.apple.dock autohide -bool true
 
-# Dockが表示されるまでの遅延を無くす
-defaults write com.apple.dock autohide-delay -float 0
+# # Dockが表示されるまでの遅延を無くす
+# defaults write com.apple.dock autohide-delay -float 0
 
-# Dockが隠れるアニメーションの速度を0.5秒に
-defaults write com.apple.dock autohide-time-modifier -float 0.5
+# # Dockが隠れるアニメーションの速度を0.5秒に
+# defaults write com.apple.dock autohide-time-modifier -float 0.5
 
-# Dashboard無効化
-defaults write com.apple.dashboard mcx-disabled -bool true
+# # Dashboard無効化
+# defaults write com.apple.dashboard mcx-disabled -bool true
 
-# 設定反映
-killall Dock
+# # 設定反映
+# killall Dock
 
-##################################
-# スクリーンショット系
-##################################
+# ##################################
+# # スクリーンショット系
+# ##################################
 
-# 保存場所を変更
-defaults write com.apple.screencapture location ~/Downloads
+# Save screenshots to the Downloads.
+defaults write com.apple.screencapture location -string "${HOME}/Downloads"
 
-# 設定を反映
-killall SystemUIServer
+
+# # 設定を反映
+# killall SystemUIServer
+
+# ##################################
+# # HOT CORNERs
+# ##################################
+
+# Hot corners
+# Possible values:
+#  0: no-op
+#  2: Mission Control
+#  3: Show application windows
+#  4: Desktop
+#  5: Start screen saver
+#  6: Disable screen saver
+#  7: Dashboard
+# 10: Put display to sleep
+# 11: Launchpad
+# 12: Notification Center
+# 13: Lock Screen
+# Top left screen corner → Desktop
+# defaults write com.apple.dock wvous-tl-corner -int 10
+# defaults write com.apple.dock wvous-tl-modifier -int 0
+# Top right screen corner → Mission Control
+defaults write com.apple.dock wvous-tr-corner -int 2
+defaults write com.apple.dock wvous-tr-modifier -int 0
+# Bottom left screen corner → Start screen saver
+defaults write com.apple.dock wvous-bl-corner -int 5
+defaults write com.apple.dock wvous-bl-modifier -int 0
