@@ -18,12 +18,13 @@ defaults write com.apple.dock tilesize -int 36
 # System Preferences > Trackpad
 ################################################################################
 
-# Tap to click
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool false
-defaults write com.apple.AppleMultitouchTrackpad Clicking -bool false
+## tap click
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write -g com.apple.mouse.tapBehavior -bool true
 
 
 # Kill affected apps
-for app in "Dock" "Finder"; do
+for app in "Dock" "Finder" "SystemUIServer"; do
     killall "${app}" > /dev/null 2>&1
 done

@@ -9,12 +9,10 @@
 3. kuberutenetes in house web
 4. create vector map tile server. in house and lyaout
 5. how to one screan control in mac
-
 - レンタカー予約する
 
 ### 残り移行処理
 
-- application の管理
 - vscode の管理
 - atcoder 環境
 - ssh の管理
@@ -36,6 +34,7 @@
 - MonitorControlLite
 
 
+# TODO:For me
 ### Mac 設定
 - control & chommand change
 - background screen syber to movie

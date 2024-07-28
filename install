@@ -88,13 +88,19 @@ install() {
 
 yes_or_no() {
     local prompt_message="$1"
-    local confirm_callback="$2"
+    shift
+    local confirm_command="$@"
 
     while true; do
-        read -p "${BLUE}${BOLD}Do you want to $prompt_message ? (y/n)${NORMAL}: " answer
+        read -p "${BLUE}${BOLD}$prompt_message ? (y/n)${NORMAL}: " answer
         if [[ "$answer" == [Yy] ]]; then
-            "$confirm_callback"
-            echo -e "${GREEN}${BOLD}Configuration completed.${NORMAL}"
+            eval "$confirm_command"
+            if [[ $? -eq 0 ]]; then
+                echo -e "${GREEN}${BOLD}Configuration completed successfully.${NORMAL}"
+            else
+                echo -e "${RED}${BOLD}Configuration failed.${NORMAL}"
+            fi
+            break
             break
         elif [[ "$answer" == [Nn] ]]; then
             echo "Skipped!"
@@ -104,7 +110,6 @@ yes_or_no() {
         fi
     done
 }
-
 
 # ------------------------------  install methods ------------------------------
 
@@ -157,11 +162,12 @@ gitconfig_set() {
 
     echo "Git user.name set to: $(git config --global user.name)"
     echo "Git user.email set to: $(git config --global user.email)"
+    return 0
 }
 git_install() {
     install git brew install git
     if [ ! -f $HOME/.gitconfig ]; then
-        yes_or_no "configure gitconfig" gitconfig_set
+        yes_or_no "Do you want to configure gitconfig" gitconfig_set
     fi
 }
 
@@ -259,6 +265,49 @@ brewfile_download() {
         brew bundle --file=$DOTFILES_PATH/.config/brew/Brewfile.mac
     fi
     success "GUI Apps installation is completed."
+}
+
+# vscode settings.json symlink
+vscode_settingjson() {
+    arrow "Synlink settings.json"
+    if [[ $OS == 'macOS' ]] ; then
+        ln -snfv $DOTFILES_PATH/.config/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
+    elif [[ $OS == 'Linux' ]] ; then
+        ln -snfv $DOTFILES_PATH/.config/vscode/settings.json $HOME/.config/Code/User/settings.json
+    else
+        echo "Your OS is not supported. Please set up manually."
+    fi
+    return 0
+}
+# vscode extentions.txt symlink 
+vscode_extensions() {
+    arrow "Install vscode Extensions"
+    if [[ $OS == 'macOS' ]] ; then
+        cat << EOF >> ~/.zprofile
+# Add Visual Studio Code (code)
+export PATH="\$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+EOF
+        # Install extensions using the code command
+        if [ "$(which code)" != "" ]; then
+            cat < "${DOTFILES_PATH}/.config/vscode/extensions" | while read -r line
+            do
+                code --install-extension "$line"
+            done
+        else
+            echo "${RED}${BOLD}Cannot find code command.... Try to install your-self! then Please try it again after! ${NORMAL}"
+            echo "${RED}ref:https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line ${NORMAL}"
+            return 1
+        fi
+        return 0
+    else
+        echo "Your OS is not supported. Please set up manually. (detect that not macos)"
+        return 1
+    fi
+}
+# vscode settings
+vscode_setting() {
+    yes_or_no "Do you want to use my vscode settings.json" vscode_settingjson
+    yes_or_no "Do you want to Install vscode extensions" vscode_extensions
 }
 
 # ------------------------------ main ------------------------------
