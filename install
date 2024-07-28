@@ -252,9 +252,9 @@ mac_defaults_setup() {
 # install GUI Apps
 brewfile_download() {
     arrow "Installing GUI Apps"
-    brew bundle --file=$DOTFILES_PATH/brew/Brewfile
+    brew bundle --file=$DOTFILES_PATH/.config/brew/Brewfile
     if [[ $OS == 'macOS' ]] ; then
-        brew bundle --file=$DOTFILES_PATH/brew/Brewfile.mac
+        brew bundle --file=$DOTFILES_PATH/.config/brew/Brewfile.mac
     fi
     success "GUI Apps installation is completed."
 }
