@@ -152,7 +152,7 @@ brew_install() {
     eval "$(/opt/homebrew/bin/brew shellenv)"
 }
 
-# install git and setting gitconfig and sshkey with user input
+# install git and setting gitconfig
 gitconfig_set() {
     read -p "${BLUE}Enter your Git user name${NORMAL}: " git_username
     read -p "${BLUE}Enter your Git user email${NORMAL}: " git_useremail
@@ -366,7 +366,7 @@ atcoder_settings() {
 
 # make sshkey
 make_sshkey() {
-    yes_or_no "Do you want to make sshkey for github or else ?" source ./ssh
+    yes_or_no "Do you want to make sshkey for github or else ?" mkdir -p ~/.ssh && cd ~/.ssh && ssh-keygen -t rsa && cd $DOTFILES_PATH && echo "run 'pbcopy < ~/.ssh/id_<<your choised name>>.pub' and paste that into GitHub"
 }
 
 # ------------------------------ main ------------------------------
