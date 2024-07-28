@@ -11,6 +11,15 @@
 
 
 # TODO:For me
+
+# ログイン認証
+- arc
+- chrome
+- git ssh
+- slack
+- lindle
+etc
+
 ### Mac 設定
 - キーボードのcontrolと commandを入れ替える
 - 背景変えたい・terminal背景変えたい
