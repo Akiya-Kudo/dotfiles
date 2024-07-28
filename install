@@ -160,7 +160,9 @@ gitconfig_set() {
 }
 git_install() {
     install git brew install git
-    yes_or_no "configure gitconfig" gitconfig_set
+    if [ ! -f $HOME/.gitconfig ]; then
+        yes_or_no "configure gitconfig" gitconfig_set
+    fi
 }
 
 # download dotfiles
