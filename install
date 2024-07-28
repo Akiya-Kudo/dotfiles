@@ -327,6 +327,7 @@ atcoder_configure() {
     # atcoder-cli
     arrow "Install atcoder-cli using volta"
     if [ -x "$(command -v volta)" ] && ! [ -x "$(command -v acc)" ]; then
+        volta install node
         volta install atcoder-cli
         echo "${BLUE}Please log in to AtCoder !${NORMAL}"
         acc login
