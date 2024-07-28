@@ -366,7 +366,7 @@ atcoder_settings() {
 
 # make sshkey
 make_sshkey() {
-    yes_or_no "Do you want to make sshkey for github or else ?" mkdir -p ~/.ssh && cd ~/.ssh && ssh-keygen -t rsa && cd $DOTFILES_PATH && echo "run 'pbcopy < ~/.ssh/id_<<your choised name>>.pub' and paste that into GitHub"
+    yes_or_no "Do you want to make sshkey for github or else ?" mkdir -p ~/.ssh && cd ~/.ssh && ssh-keygen -t rsa && cd $DOTFILES_PATH && echo "run 'pbcopy < ~/.ssh/<<your choised name>>.pub' and paste that into GitHub"
 }
 
 # ------------------------------ main ------------------------------
