@@ -12,9 +12,11 @@
 
 # TODO:For me
 ### Mac 設定
-- control & chommand change
-- background screen syber to movie
-- dock all delete 
-- hot corner   left bottom: lock right bottom: launch ~ right top: menu
-- default browser arc
-- stage manager setting : only one window at once : right commadn + @ to switch same app :
+- キーボードのcontrolと commandを入れ替える
+- 背景変えたい・terminal背景変えたい
+- dock整理
+- hot cornerを設定: 左下: 画面ロック / 右下: Mission control / 左上 screen savor  / 右上: menu
+- デフォルトブラウザを切り替える
+- ステージマネージャー変えたい one window at onceに
+- 右コマンド + @で同じアプリ切り替えにする
+- air pods・マウス・wifi・接続
