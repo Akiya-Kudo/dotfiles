@@ -2,20 +2,11 @@
 
 `bash -c "$(curl -fsSL https://raw.githubusercontent.com/Akiya-Kudo/dotfiles/main/install)"`
 
-
-### 残り移行処理
-
-- ssh の管理
-
-
-
-
 # TODO:For me
-
-# ログイン認証
+### ログイン認証
+- git ssh
 - arc
 - chrome
-- git ssh
 - slack
 - lindle
 etc
@@ -29,3 +20,10 @@ etc
 - ステージマネージャー変えたい one window at onceに
 - 右コマンド + @で同じアプリ切り替えにする
 - air pods・マウス・wifi・接続
+
+
+# 次やりたいこと
+- defaults設定
+- linux対応
+- promptカスタム
+- terminalで単語ごと削除したい
