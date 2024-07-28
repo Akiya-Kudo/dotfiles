@@ -322,6 +322,9 @@ atcoder_configure() {
         mkdir "cpp" && cd "cpp"
         cp $DOTFILES_PATH/.config/atcoder/main.cpp .
         cp $DOTFILES_PATH/.config/atcoder/template.json .
+        cd ../
+        cp $DOTFILES_PATH/.config/atcoder/config.json .
+        jq '.["oj-path"] = "/Users/$USER/Library/Python/3.9/bin/oj"' "./config.json" > tmp.$$.json && mv tmp.$$.json "./config.json"
     else
         echo "skipped because of some reasons : Volta is not installed or acc is already installed."
     fi
