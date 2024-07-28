@@ -311,6 +311,19 @@ vscode_setting() {
 
 # configure python and npm  and g++ and bits for atcoder
 atcoder_configure() {
+    # online-judge-tools
+    arrow "Install online-judge-tools"
+    brew install python@3.9
+    ln -s /opt/homebrew/opt/python@3.9/bin/pip3.9 /opt/homebrew/opt/python@3.9/bin/pip3
+    if [ -x "$(command -v pip3)" ]; then
+        echo "Using pip3 path: $(which pip3)"
+        pip3 install online-judge-tools
+        echo "${BLUE}Please log in to AtCoder !${NORMAL}"
+        oj login https://beta.atcoder.jp/
+    else
+        echo "${RED}installaction of online-judge-tools failed becouase of pip3 not found. Please install pip3 and try again.${NORMAL}"
+        return 1
+    fi
     # atcoder-cli
     arrow "Install atcoder-cli using volta"
     if [ -x "$(command -v volta)" ] && ! [ -x "$(command -v acc)" ]; then
@@ -324,24 +337,15 @@ atcoder_configure() {
         cp $DOTFILES_PATH/.config/atcoder/template.json .
         cd ../
         cp $DOTFILES_PATH/.config/atcoder/config.json .
-        jq --arg user "$USER" '.["oj-path"] = "/Users/\($user)/Library/Python/3.9/bin/oj"' "./config.json" > tmp.$$.json && mv tmp.$$.json "./config.json"
+        # 現在のユーザー名を取得
+        username=$USER
+        # 置換する文字列を定義
+        new_line="    \"oj-path\": \"/Users/${username}/Library/Python/3.9/bin/oj\","
+        # 2行目を新しい文字列に置き換え
+        sed -i.bak "2s|.*|$new_line|" config.json
         cd $DOTFILES_PATH
     else
         echo "skipped because of some reasons : Volta is not installed or acc is already installed."
-    fi
-    # online-judge-tools
-    arrow "Install online-judge-tools"
-    brew install python@3.9
-    ln -s /opt/homebrew/opt/python@3.9/bin/pip3.9 /opt/homebrew/opt/python@3.9/bin/pip3
-    # echo 'export PATH="/opt/homebrew/opt/python@3.9/bin:$PATH"' >> ~/.zshrc # moveed to .zshrc
-    if [ -x "$(command -v pip3)" ]; then
-        echo "Using pip3 path: $(which pip3)"
-        pip3 install online-judge-tools
-        echo "${BLUE}Please log in to AtCoder !${NORMAL}"
-        oj login https://beta.atcoder.jp/
-    else
-        echo "${RED}installaction of online-judge-tools failed becouase of pip3 not found. Please install pip3 and try again.${NORMAL}"
-        return 1
     fi
     # g++
     arrow "set up g++"
