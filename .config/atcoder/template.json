@@ -1,7 +1,7 @@
 {
   "task":{
-"program": ["main.cpp"],
-"submit": "main.cpp", 
-"testdir": "test"	
+    "program": ["main.cpp"],
+    "submit": "main.cpp", 
+    "testdir": "tests"	
   }
 }

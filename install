@@ -333,6 +333,8 @@ atcoder_configure() {
     if [ -x "$(command -v pip3)" ]; then
         echo "Using pip3 path: $(which pip3)"
         pip3 install online-judge-tools
+        echo "${BLUE}Please log in to AtCoder !${NORMAL}"
+        oj login https://beta.atcoder.jp/
     else
         echo "${RED}installaction of online-judge-tools failed becouase of pip3 not found. Please install pip3 and try again.${NORMAL}"
         return 1
