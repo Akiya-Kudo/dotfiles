@@ -328,11 +328,13 @@ atcoder_configure() {
     fi
     # online-judge-tools
     arrow "Install online-judge-tools"
-    if [ -x "$(command -v pip)" ]; then
-        echo "Using pip path: $(which pip)"
-        pip install online-judge-tools
+    brew install python@3.9
+    echo 'export PATH="/opt/homebrew/opt/python@3.9/bin:$PATH"' >> ~/.zshrc
+    if [ -x "$(command -v pip3)" ]; then
+        echo "Using pip3 path: $(which pip3)"
+        pip3 install online-judge-tools
     else
-        echo " installaction of online-judge-tools failed becouase of pip not found. Please install pip and try again."
+        echo " installaction of online-judge-tools failed becouase of pip3 not found. Please install pip3 and try again."
         return 1
     fi
     # g++

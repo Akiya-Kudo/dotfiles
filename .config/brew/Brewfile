@@ -6,10 +6,6 @@
 # tap "homebrew/services"
 # tap "homebrew/cask"
 ###############################
-#  brew                       #
-###############################
-brew "python@3.9"
-###############################
 #  Cask                       #
 ###############################
 cask "google-chrome"
@@ -18,3 +14,4 @@ cask "docker"
 cask "obsidian"
 cask "visual-studio-code"
 cask "postman"
+cask "dbeaver-community"
