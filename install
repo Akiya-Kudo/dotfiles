@@ -162,12 +162,13 @@ gitconfig_set() {
 
     echo "Git user.name set to: $(git config --global user.name)"
     echo "Git user.email set to: $(git config --global user.email)"
+    ln -s $DOTFILES_PATH/.config/git/.gitignore_global $HOME/.gitignore_global
     return 0
 }
 git_install() {
     install git brew install git
     if [ ! -f $HOME/.gitconfig ]; then
-        yes_or_no "Do you want to configure gitconfig" gitconfig_set
+        yes_or_no "Do you want to configure gitconfig & gitignore_global ?" gitconfig_set
     fi
 }
 

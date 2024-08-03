@@ -1,7 +1,0 @@
-# dotfileダウンロード前にgit install したいため、このファイル設定は使いたくない
-[user]
-	name = Akiya-Kudo
-	email = k.akiya07@gmail.com
-
-[init]
-	defaultbranch = main
