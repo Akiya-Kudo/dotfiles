@@ -8,6 +8,7 @@ brew "mas"
 cask "arc"
 cask "rectangle"
 cask "sourcetree"
+cask "warp"
 ###############################
 #  mas                        #
 ###############################
