@@ -2,8 +2,7 @@
 
 `bash -c "$(curl -fsSL https://raw.githubusercontent.com/Akiya-Kudo/dotfiles/main/install)"`
 
-# TODO:For me
-### ログイン認証
+### 手動:ログイン認証
 - git ssh
 - arc
 - chrome
@@ -11,7 +10,7 @@
 - lindle
 etc
 
-### Mac 設定
+### 手動：Mac設定項目
 - キーボードのcontrolと commandを入れ替える
 - 背景変えたい・terminal背景変えたい
 - dock整理
@@ -30,4 +29,8 @@ etc
 - defaults設定
 - linux対応
 - promptカスタム
-- terminalで単語ごと削除したい
+
+# Custom
+### Brew
+> If wanna change installed application, edit .config/brew files
+

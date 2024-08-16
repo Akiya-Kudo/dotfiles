@@ -140,7 +140,7 @@ xcode_download() {
     fi
 }
 
-# install brew
+# install brew 
 brew_install() {
     install brew NONINTERACTIVE=1 | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" < /dev/null
     if [ $? -ne 0 ]; then
@@ -152,24 +152,9 @@ brew_install() {
     eval "$(/opt/homebrew/bin/brew shellenv)"
 }
 
-# install git and setting gitconfig
-gitconfig_set() {
-    read -p "${BLUE}Enter your Git user name${NORMAL}: " git_username
-    read -p "${BLUE}Enter your Git user email${NORMAL}: " git_useremail
-
-    git config --global user.name "$git_username"
-    git config --global user.email "$git_useremail"
-
-    echo "Git user.name set to: $(git config --global user.name)"
-    echo "Git user.email set to: $(git config --global user.email)"
-    ln -s $DOTFILES_PATH/.config/git/.gitignore_global $HOME/.gitignore_global
-    return 0
-}
+# install git
 git_install() {
     install git brew install git
-    if [ ! -f $HOME/.gitconfig ]; then
-        yes_or_no "Do you want to configure gitconfig & gitignore_global ?" gitconfig_set
-    fi
 }
 
 # download dotfiles
@@ -178,7 +163,7 @@ dotfiles_download() {
     cd $HOME
     if [ ! -d $DOTFILES_PATH ]; then
         if has git; then
-            git clone --recursive $REMOTE_URL $DOTFILES_PATH
+            git clone $REMOTE_URL $DOTFILES_PATH
         else
             error "Please install git first and then run."
             exit 1
@@ -193,6 +178,26 @@ dotfiles_download() {
     fi
 }
 
+# setting gitconfig
+gitconfig_set() {
+    read -p "${BLUE}Enter your Git user name${NORMAL}: " git_username
+    read -p "${BLUE}Enter your Git user email${NORMAL}: " git_useremail
+
+    git config --global user.name "$git_username"
+    git config --global user.email "$git_useremail"
+
+    echo "Git user.name set to: $(git config --global user.name)"
+    echo "Git user.email set to: $(git config --global user.email)"
+    ln -s $DOTFILES_PATH/.config/git/.gitignore_global $HOME/.gitignore_global
+    return 0
+}
+git_config_check() {
+    if [ ! -f $HOME/.gitconfig ]; then
+        yes_or_no "Do you want to configure gitconfig & gitignore_global ?" gitconfig_set
+    fi
+}
+
+
 # install zsh plugins and link zsh config
 zsh_setting() {
     arrow "Installing zsh plugins and linking zsh config."
@@ -206,56 +211,29 @@ zsh_setting() {
     fi
 }
 
-# install bat
-bat_install() {
-    install bat brew install bat
-}
-
-# install exa
-eza_install() {
-    install eza brew install eza
-}
-
 # install starship
 starship_install() {
     install starship brew install starship
-    ln -snfv $DOTFILES_PATH/.config/starship/starship.toml $HOME/.config/starship.toml
-    starship preset bracketed-segments -o ~/.config/starship.toml
+    # ln -snfv $DOTFILES_PATH/.config/starship/starship.toml $HOME/.config/starship.toml
+    # starship preset bracketed-segments -o ~/.config/starship.toml
 }
 
-# install volta 
-volta_install() {
-    install volta brew install volta
-}
-
-# install yazi
-yazi_install() {
-    install yazi brew install yazi
-}
-
+# Comment out because of not using Starship.toml
 # install jetbrains mono
-Cascadia_Code_Font_install() {
-    arrow "Installing CascadiaCode Font"
-    if [ ! -d "$HOME/Library/Fonts/CascadiaCode" ]; then
-        mkdir -p "$HOME/Library/Fonts/CascadiaCode"
-        curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Cascadia%20Code.zip
-        unzip Cascadia%20Code.zip -d $HOME/Library/Fonts/CascadiaCode
-        rm -f Cascadia%20Code.zip
-        mv "$HOME/dotfiles/font/CascadiaCode" "$HOME/Library/Fonts/"
-        success "Successfully installed CascadiaCode"
-    else
-        bold "CascadiaCode is already exists."
-    fi
-}
+# Cascadia_Code_Font_install() {
+#     arrow "Installing CascadiaCode Font"
+#     if [ ! -d "$HOME/Library/Fonts/CascadiaCode" ]; then
+#         mkdir -p "$HOME/Library/Fonts/CascadiaCode"
+#         curl -fLO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Cascadia%20Code.zip
+#         unzip Cascadia%20Code.zip -d $HOME/Library/Fonts/CascadiaCode
+#         rm -f Cascadia%20Code.zip
+#         mv "$HOME/dotfiles/font/CascadiaCode" "$HOME/Library/Fonts/"
+#         success "Successfully installed CascadiaCode"
+#     else
+#         bold "CascadiaCode is already exists."
+#     fi
+# }
 
-# set up mac defaults
-mac_defaults_setup() {
-    if [[  $OS == 'macOS' ]] ; then 
-        arrow "Setting up macOS defaults"
-        source $HOME/dotfiles/osx
-        success "Apple Mac OS Setting is completed."
-    fi
-}
 
 # install GUI Apps
 brewfile_download() {
@@ -264,12 +242,21 @@ brewfile_download() {
     if [[ $OS == 'macOS' ]] ; then
         brew bundle --file=$DOTFILES_PATH/.config/brew/Brewfile.mac
     fi
-    success "GUI Apps installation is completed."
+    success "GUI Apps installation is done."
+    arrow "Installing CLI tools"
+
+    brew budle --file=$DOTFILES_PATH/.config/brew/Brewfile.cli
+    success "CLI tools installation is done."
 }
 
 # vscode settings.json symlink
-vscode_settingjson() {
+vscode_settingsjson() {
     arrow "Synlink settings.json"
+    if [[ -f $HOME/Library/Application\ Support/Code/User/settings.json ]] ; then
+        rm -f $HOME/Library/Application\ Support/Code/User/settings.json
+    elif [[ -f $HOME/.config/Code/User/settings.json ]] ; then
+        rm -f $HOME/.config/Code/User/settings.json
+    fi
     if [[ $OS == 'macOS' ]] ; then
         ln -snfv $DOTFILES_PATH/.config/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
     elif [[ $OS == 'Linux' ]] ; then
@@ -306,7 +293,7 @@ EOF
 }
 # vscode settings
 vscode_setting() {
-    yes_or_no "Do you want to use my vscode settings.json" vscode_settingjson
+    yes_or_no "Do you want to use my vscode settings.json" vscode_settingsjson
     yes_or_no "Do you want to Install vscode extensions" vscode_extensions
 }
 
@@ -366,6 +353,15 @@ atcoder_settings() {
     fi
 }
 
+# set up mac defaults
+mac_defaults_setup() {
+    if [[  $OS == 'macOS' ]] ; then 
+        arrow "Setting up macOS defaults"
+        source $HOME/dotfiles/osx
+        success "Apple Mac OS Setting is completed."
+    fi
+}
+
 # make sshkey
 make_sshkey() {
     yes_or_no "Do you want to make sshkey for github or else ?" mkdir -p ~/.ssh && cd ~/.ssh && ssh-keygen -t rsa && cd $DOTFILES_PATH && echo "run 'pbcopy < ~/.ssh/<<your choised name>>.pub' and paste that into GitHub"
@@ -380,15 +376,12 @@ main() {
     if [ $OS = 'macOS' ]; then
         losetta_download
         xcode_download
-        brew_install
         git_install
+        brew_install
         dotfiles_download
+        git_config_check
         zsh_setting
-        eza_install
         starship_install
-        bat_install
-        volta_install
-        Cascadia_Code_Font_install
         brewfile_download
         vscode_setting
         atcoder_settings
