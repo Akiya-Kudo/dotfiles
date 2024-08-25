@@ -245,7 +245,7 @@ brewfile_download() {
     success "GUI Apps installation is done."
     arrow "Installing CLI tools"
 
-    brew budle --file=$DOTFILES_PATH/.config/brew/Brewfile.cli
+    brew bundle --file=$DOTFILES_PATH/.config/brew/Brewfile.cli
     success "CLI tools installation is done."
 }
 
@@ -258,9 +258,9 @@ vscode_settingsjson() {
         rm -f $HOME/.config/Code/User/settings.json
     fi
     if [[ $OS == 'macOS' ]] ; then
-        ln -snfv $DOTFILES_PATH/.config/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
+        mkdir -p $HOME/Library/Application\ Support/Code/User && ln -snfv $DOTFILES_PATH/.config/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
     elif [[ $OS == 'Linux' ]] ; then
-        ln -snfv $DOTFILES_PATH/.config/vscode/settings.json $HOME/.config/Code/User/settings.json
+        mkdir -p $HOME/.config/Code/User && ln -snfv $DOTFILES_PATH/.config/vscode/settings.json $HOME/.config/Code/User/settings.json
     else
         echo "Your OS is not supported. Please set up manually."
     fi
@@ -339,7 +339,7 @@ atcoder_configure() {
     # g++
     arrow "set up g++"
     brew install gcc@14
-    sudo ln -s /opt/homebrew/opt/gcc@14/bin/g++-14 /usr/local/bin/g++
+    sudo mkdir -p /usr/local/bin/ && sudo ln -s /opt/homebrew/opt/gcc@14/bin/g++-14 /usr/local/bin/g++
     # Be cautious with system directories and use sudo if necessary
     sudo mkdir -p /usr/local/include/bits/
     sudo cp "$DOTFILES_PATH/.config/atcoder/stdc++.h" "/usr/local/include/bits"

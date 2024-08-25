@@ -21,16 +21,18 @@ etc
 - air pods・マウス・wifi・接続
 - 言語設定
 - dockを自動でどじる設定
-
-# fix: 
-- ssh のconfigを作成するor default名のみ対応にする
+- 現状では、githubとの連携で共通のsshkeyファイル名を揃えないといけないっぽいからdefault nameで作成して、githubでもそれを指定する
 
 # 次やりたいこと
 - defaults設定
 - linux対応
 - promptカスタム
 
+#　できてないこと
+- atcoder環境設定がエラー出てる.
+- accコマンドが使えない
+- ssh のconfigを作成するor default名のみ対応にする
+
 # Custom
 ### Brew
 > If wanna change installed application, edit .config/brew files
-
