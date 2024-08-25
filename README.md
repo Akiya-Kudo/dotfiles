@@ -33,6 +33,7 @@ etc
 - accコマンドが使えない
 - ssh のconfigを作成するor default名のみ対応にする
 - runtimeでインストールしたaccやojcommandを使う処理ができてない　＝＞ 同一関数内でインストールしたものが使えない？可能性(# atcoder-cli条件分岐内の処理ができてないあとlogin系)
+- accのconfig.jsonのos name部を修正 => acc config-dir
 
 # Custom
 ### Brew
