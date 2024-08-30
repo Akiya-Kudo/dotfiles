@@ -22,6 +22,8 @@ etc
 - 言語設定
 - dockを自動でどじる設定
 - 現状では、githubとの連携で共通のsshkeyファイル名を揃えないといけないっぽいからdefault nameで作成して、githubでもそれを指定する
+-  warpでstarshipのpromptを指定できるようにする。デフォルトはwarpのprompt
+-  
 
 # 次やりたいこと
 - defaults設定
