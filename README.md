@@ -29,6 +29,7 @@ etc
 - defaults設定
 - linux対応
 - promptカスタム
+docker Hub / Github container registriesへのログイン
 
 #　できてないこと
 - atcoder環境設定がエラー出てる.
